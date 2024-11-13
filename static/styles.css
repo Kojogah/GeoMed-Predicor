@@ -1,0 +1,162 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+    background: url('brainbackground.png') no-repeat center center fixed;
+}
+
+.top-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 170px;
+    background-color: #d9d9d9;
+}
+
+.bottom-nav {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    overflow: hidden;
+    height: 40px;
+    background-color: #d9d9d9;
+    padding: 0;
+    margin: 0;
+}
+
+ul p {
+    margin: 0;
+    text-align: center;
+    font-size: 25px;
+    color: #5e5e5e;
+}
+
+.top-nav img {
+    height: 130px;
+    width: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.content {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.image-upload-section {
+    float: left;
+    margin-left: 700px;
+    margin-top: -350px;
+}
+
+#image-upload {
+    display: none;
+}
+
+.getprediction1 {
+    display: none;
+}
+.custom-file-upload {
+    font-size: 30px;
+    display: inline-block;
+    padding-top: 5px;
+    cursor: pointer;
+    background-color: #284a84d7;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    height: 50px;
+    width: 250px;
+    margin-bottom: 30px;
+    margin-left: 70px;
+}
+
+#predict-button {
+    font-size: 30px;
+    padding-top: 5px;
+    height: 50px;
+    width: 250px;
+    font-family: 'Kanit', sans-serif;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #284a84d7;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    margin-bottom: 30px;
+    margin-left: 300px;
+}
+
+.custom-file-upload:hover,
+.custom-file-upload:active {
+    background-color: #0056b3;
+}
+#predict-button:hover,
+#predict-button:active {
+    background-color: #0056b3;
+}
+
+.image-preview {
+    margin: 20px;
+    margin-left: -470px;
+}
+
+.image-preview img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+#prediction-box {
+    background-color: #d9d9d9b2;
+    border: 1px solid #ddd;
+    text-align: center;
+    height: 100px;
+    width: 500px;
+    border-radius: 10px;
+    font-size: 45px;
+    padding: auto;
+    float: right;
+    margin-right: 680px;
+    margin-top: -250px;
+}
+
+#prediction-text {
+    align-items: center;
+    margin-top: 13px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f8f8f8;
+    text-align: center;
+    padding: 20px 0;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #284984;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
