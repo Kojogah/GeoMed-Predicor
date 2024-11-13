@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GeoMed Predictor</title>
+    <link href="https://fonts.googleapis.com/css?family=Kanit:500i" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://unpkg.com/heic2any"></script>
+</head>
+<body>
+    <ul class="top-nav">
+        <li><img src="{{ url_for('static', filename='geomed-logo.png') }}" alt="GeoMed Logo" id="logo"></li>
+    </ul>
+    <div class="content">
+        <main>
+            <form id="image-form">
+                <div class="image-upload-section">
+                    <input type="file" id="image-upload" name="image-upload" accept="image/*" style="display: none;">
+                    <label for="image-upload" id="image-label" class="custom-file-upload">
+                        Upload File
+                    </label>
+                    <input type="submit" id="getpred" class="getprediction1" value="Get Prediction" style="display: none;">
+                    <label for="getpred" id="predict-button">Get Prediction</label>
+                    <div class="image-preview">
+                        <img src="{{ url_for('static', filename='noimage.png') }}" alt="No image available" id="preview">
+                    </div>
+                </div>
+            </form>
+            <div id="prediction-box">
+                <p id="prediction-text">Prediction</p>
+            </div>
+        </main>
+    </div>
+    <ul class="bottom-nav">
+        <p>Copyright 2024 @ GeoMed.</p>
+    </ul>
+    <script>
+        document.getElementById('image-upload').onchange = function (event) {
+            var file = event.target.files[0];
+            var output = document.getElementById('preview');
+            
+            if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+                heic2any({
+                    blob: file,
+                    toType: 'image/jpeg',
+                    quality: 0.6 // Adjust quality if needed
+                }).then(function (result) {
+                    output.src = URL.createObjectURL(result);
+                }).catch(function (error) {
+                    console.error('Error converting HEIC to JPEG:', error);
+                });
+            } else {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+    
+        document.getElementById('image-form').onsubmit = function (e) {
+            e.preventDefault(); // Prevent the default form submit action
+            var formData = new FormData(this);
+            document.getElementById('prediction-text').innerHTML = '<div class="loader"></div>'; // Show loading spinner
+            
+            // Perform the AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/predict', true);
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    // After the response from the server, replace the loader with the prediction text
+                    document.getElementById('prediction-text').textContent = this.responseText;
+                } else {
+                    document.getElementById('prediction-text').textContent = 'Error predicting image.';
+                }
+            };
+            setTimeout(function() {
+                xhr.send(formData);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
